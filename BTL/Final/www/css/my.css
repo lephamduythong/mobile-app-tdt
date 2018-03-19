@@ -1,0 +1,31 @@
+/* .helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+#welcomeView {
+    max-height: 720px;
+    text-align: center;
+    margin: 1em 0;
+}
+
+#welcomeView img {
+    vertical-align: middle;
+} */
+
+.standardPaddingDiv {
+    padding: 10px;
+}
+
+.standardInput {
+    box-sizing: border-box;
+    font-family: -apple-system, 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+    font-size: 18px;
+    padding: 10px;
+}
+
+#welcomeBlock {
+    padding: 10px;
+    text-align: center;
+}

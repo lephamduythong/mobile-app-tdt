@@ -1,0 +1,16 @@
+Migraion:
+	Add:
+		Add-Migration InitialCreate
+		dotnet ef migrations add InitialCreate
+	
+	Update:
+		Update-Database
+		dotnet ef database update
+	
+	Remove:
+		Remove-Migration
+		dotnet ef migrations remove
+
+	Revert:	
+		Update-Database LastGoodMigration
+		dotnet ef database update LastGoodMigration

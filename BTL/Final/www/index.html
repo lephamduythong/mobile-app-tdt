@@ -2,23 +2,73 @@
 <html>
 
 <head>
-	<title></title>
+	<title>Demo Cordova Phonegap</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="css/onsenui.css">
-	<link rel="stylesheet" href="css/onsen-css-components.min.css">
-	<script src="js/onsenui.min.js"></script>
-	<script src="js/jquery-1.10.2.min.js"></script>
+
+	<script src="lib/js/onsenui.min.js"></script>
+	<script src="lib/js/jquery-1.11.3.min.js"></script>
+	<script src="lib/js/swiper.min.js"></script>
+
+	<link rel="stylesheet" href="lib/css/onsenui.css">
+	<link rel="stylesheet" href="lib/css/onsen-css-components.min.css">
+	<link rel="stylesheet" href="lib/css/swiper.min.css">
+	<link rel="stylesheet" href="css/my.css">
 </head>
 
 <body>
-	<ons-splitter>
-		<ons-splitter-side page="/view/menu.html" id="menu" side="left" width="220px" collapse swipeable>
-		</ons-splitter-side>
-		<ons-splitter-content page="/view/list-view.html" id="content"></ons-splitter-content>
-	</ons-splitter>
+	<ons-navigator id="myNavigator" page="splitter.html"> </ons-navigator>
+
+	<template id="splitter.html">
+		<ons-page>
+			<ons-splitter id="mySplitter">
+				<ons-splitter-side page="menu-view.html" id="menuRegion" side="left" width="220px" collapse swipeable>
+				</ons-splitter-side>
+				<ons-splitter-content page="welcome-view.html" id="contentRegion"></ons-splitter-content>
+			</ons-splitter>
+		</ons-page>
+	</template>
+
+	<template id="menu-view.html">
+		<ons-page id="menuView">
+			<ons-list>
+				<ons-list-item onClick="fn.load('view/list-view.html')" tappable>
+					List View
+				</ons-list-item>
+				<ons-list-item onClick="fn.load('view/slide-show.html')" tappable>
+					Slide Show
+				</ons-list-item>
+			</ons-list>
+		</ons-page>
+	</template>
+
+	<template id="welcome-view.html">
+		<ons-page id="welcomeView">
+			<ons-toolbar>
+				<div class="left">
+					<ons-toolbar-button id="button-toggle-menu">
+						<ons-icon icon="ion-navicon, material:md-menu" size="32px, material:24px"></ons-icon>
+					</ons-toolbar-button>
+				</div>
+				<div class="center">Welcome</div>
+			</ons-toolbar>
+
+			<div id="welcomeBlock">
+				<h1>Chào mừng đến với thế giới của Apache Cordova</h1>
+				<img style="display: inline-block; width:75%;" src="img/gif/dog_welcome.webp" alt="Cute dog" />
+				<p>By Thong Le - Lan Nguyen</p>
+			</div>
+		</ons-page>
+	</template>
+
+
+	</ons-page>
 
 	<script src="js/app.js"></script>
+	<script src="js/pages.js"></script>
+	<script src="js/controllers.js"></script>
+	<script src="js/services.js"></script>
+	
 
 	<!-- <ons-navigator animation="slide" swipeable id="myNavigator" page="page1.html"></ons-navigator>
 
@@ -50,8 +100,34 @@
 			<p>This is the second page.</p>
 		</ons-page>
 	</template> -->
-
-	
 </body>
 
 </html>
+
+	<!-- <ons-toolbar>
+				<div class="center">List View Demo</div>
+			</ons-toolbar>
+
+			<ons-tabbar swipeable position="bottom">
+				<ons-tab page="tab1.html" label="Tab 1" icon="ion-home, material:md-home" badge="7" active>
+				</ons-tab>
+				<ons-tab page="tab2.html" label="Tab 2" icon="md-settings" active-icon="md-face">
+				</ons-tab>
+
+				<template id="tab1.html">
+					<ons-page id="page1_tab1">
+						<p style="text-align: center;">
+							<p>This is the first page.</p>
+							<ons-button id="push-button">Push page</ons-button>
+						</p>
+					</ons-page>
+				</template>
+
+				<template id="tab2.html">
+					<ons-page id="page1_tab2">
+						<p style="text-align: center;">
+							This is the second page.
+						</p>
+					</ons-page>
+				</template>
+			</ons-tabbar> -->
