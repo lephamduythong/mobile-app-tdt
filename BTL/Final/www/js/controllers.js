@@ -4,7 +4,9 @@ var id = 10;
 myApp.controllers = {
     welcomeView: function (page, state) {
         if (state == "init") {
+            console.log('Init toggle button');
             $('#button-toggle-menu').click(function () {
+                console.log('run');
                 $('#mySplitter')[0].left.toggle();
             });
         }
@@ -12,17 +14,14 @@ myApp.controllers = {
     listView: function (page, state) {
         if (state == "init") {
             if (!returnValue.action) {
-                var data = [
-                    'Hôm nay buồn ghê',
-                    'Hôm nay vui quá hí hí!'
-                ];
+                var data = [];
             } else if (returnValue.action == "ADD_NEW_NOTE") {
                 console.log(returnValue);
                 var item = `
             <ons-list-item id='note-${i}'>
                 <ons-row>
                     <ons-col width="75%">${data[i]}</ons-col>
-                    <ons-col>Image</ons-col>
+                    <ons-col></ons-col>
                 </ons-row>
             </ons-list-item>`;
                 $('#listItem').prepend(item);
@@ -56,14 +55,18 @@ myApp.controllers = {
                 var item = `
                     <ons-list-item id='note-${id}'>
                         <ons-row>
-                            <ons-col width="90%">${returnValue.value}</ons-col>
-                            <ons-col style="margin: 0 auto;">
+                            <ons-col id='note-text-${id}' width="80%">${returnValue.value}</ons-col>
+                            <ons-col width="10%">
+                                <ons-icon onClick="editElement(${id});" id='btnEdit-${id}' style="display: block;" icon="md-edit"></ons-icon>
+                            </ons-col>
+                            <ons-col>
                                 <ons-icon onClick="removeElement('#note-${id}');" id='btnDelete-${id}' style="display: block;" icon="md-close"></ons-icon>
                             </ons-col>
                         </ons-row>
                     </ons-list-item>`;
+                
                 $('#listItem').prepend(item);
-
+                
                 // // Add delete item listener
                 // $('#btnDelete-' + id).click(function() {
                 //     console.log('Delete ' + $('#note-' + id).attr(''));
@@ -71,16 +74,47 @@ myApp.controllers = {
                 // });
 
                 returnValue = {};
+            } else if (returnValue.action == "EDIT_NOTE") {
+                $(`#note-text-${returnValue.id}`).text(returnValue.value);
             }
+        } else if (state == "destroy") {
+            console.log('Destroy add new note');
         }
     },
     newNoteView: function (page, state) {
         if (state == "init") {
+            $('#button-toggle-menu').click(function () {
+                console.log('run');
+                $('#mySplitter')[0].left.toggle();
+            });
+            
             $('#btnAddNote').click(function () {
                 // console.log($('#txtNote').val());
                 returnValue = {
                     action: 'ADD_NEW_NOTE',
                     value: $('#txtNote').val()
+                }
+                $('#myNavigator')[0].popPage();
+            });
+        }
+    },
+    editNoteView: function(page, state) {
+        if (state == "init") {
+            $('#button-toggle-menu').click(function () {
+                console.log('run');
+                $('#mySplitter')[0].left.toggle();
+            });
+
+            console.log("Edit mode " + $('#myNavigator')[0].topPage.data.id);
+
+            $('#txtNote').val($('#myNavigator')[0].topPage.data.textNote);
+
+            $('#btnEditNote').click(function () {
+                // console.log($('#txtNote').val());
+                returnValue = {
+                    action: 'EDIT_NOTE',
+                    value: $('#txtNote').val(),
+                    id: $('#myNavigator')[0].topPage.data.id
                 }
                 $('#myNavigator')[0].popPage();
             });
