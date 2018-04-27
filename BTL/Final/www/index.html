@@ -1,156 +1,133 @@
-<!-- Copyright Trevor D Miller 2013 -->
-
 <!DOCTYPE html>
 <html>
-	<head>
-		<title></title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="css/style.css" />
-		<script src="js/jquery-1.10.2.min.js"></script>
-		<script>
-			// Turn off jQuery Mobile transitions for faster use
-			$(document).bind("mobileinit", function() {   
-					$.mobile.defaultPageTransition = 'none';
-			});
-			// Allow swiping to open menu panels
-			$( document ).on( "pageinit", ".ui-page", function() {
-			  var $page = $(this);
-			  $page.on( "swipeleft swiperight", function( e ) {
-			    if ( $page.jqmData( "panel" ) !== "open" ) {
-			      if ( e.type === "swipeleft"  ) {
-			        $page.find( ".right-panel" ).panel( "open" );
-			      } else if ( e.type === "swiperight" ) {
-			        $page.find( ".left-panel" ).panel( "open" );
-			      }
-			    }
-			  });
-			});
-		</script>
-		<script src="js/functions-ck.js"></script>
-		<script src="js/jquery.mobile-1.3.2.min.js"></script>
-		<script src="js/quotes.js"></script>
-		<script type="text/javascript" src="phonegap.js"> </script>
-		<script type="text/javascript" src="cordova.js"></script>
-		<script src="js/plugins/SocialSharing.js"></script>
-	</head>
-	<body>
 
-		<!-- Home Page -->
-		<div data-role="page" id="home" data-theme="a">
-			<div data-role="panel" data-display="overlay" id="menu-panel" class="right-panel" data-position="right">
-				<a href="#filters" class="btn-primary" data-role="button" id="FiltersButton" data-icon="tag" >Filter by character</a>
-				<a href="#search" class="btn-primary" data-role="button" id="SearchButton" data-icon="search" >Search quotes</a>
-				<a href="#" data-role="button" class="btn-primary rate-btn" data-icon="star-empty" >Rate app</a>
-				<a href="mailto:feedback@modernfamilyquotes.net?subject=Modern%20Family%20Quotes%20App%20Feedback" class="btn-primary" data-role="button" data-icon="envelope-alt" >Give feedback</a>
-				<a href="mailto:submit@modernfamilyquotes.net?subject=A%20Quote%20For%20The%20Modern%20Family%20Quotes%20App" class="btn-primary" data-role="button" data-icon="envelope-alt" >Submit a quote</a>
-				<a href="#menu-panel" data-role="button" class="close" data-icon="remove">Close menu</a>
-			</div>
-			<div data-role="header"  class="custom-header" data-tap-toggle="false" data-id="header" >
-				<a href="#menu-panel" class="menu"><span class="ui-icon-reorder"></span></a>
-				<div class="logo">Modern Family <span class="logo-highlight">Q</span>uotes</div>
-			</div>
-			<div data-role="content">
-				<div class="quote">
-					<p>
-						<span class="quote-icon ui-icon-quote-left"></span>
-						<span class="currentQuote"></span>
-						<span class="quote-icon ui-icon-quote-right"></span>
-					</p>
-					<p class="meta-data">
-						- <span class="currentAuthor"></span><br>
-						<span class="currentEpisode"></span><br>
-						<span class="filters-container">
-							<a href="#filters" data-role="button" class="filters-btn" data-inline="true"><span class="ui-icon-tag"></span> Filter: <span class="filter"></span></span></a>
-						</span>
-					</p>
-					<div class="clear"></div>
+<head>
+	<title>Demo Cordova Phonegap</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script src="lib/js/onsenui.min.js"></script>
+	<script src="lib/js/jquery-1.11.3.min.js"></script>
+	<script src="lib/js/swiper.min.js"></script>
+
+	<link rel="stylesheet" href="lib/css/onsenui.css">
+	<link rel="stylesheet" href="lib/css/onsen-css-components.min.css">
+	<link rel="stylesheet" href="lib/css/swiper.min.css">
+	<link rel="stylesheet" href="css/my.css">
+</head>
+
+<body>
+	<ons-navigator id="myNavigator" page="splitter.html"> </ons-navigator>
+
+	<template id="splitter.html">
+		<ons-page>
+			<ons-splitter id="mySplitter">
+				<ons-splitter-side page="menu-view.html" id="menuRegion" side="left" width="220px" collapse swipeable>
+				</ons-splitter-side>
+				<ons-splitter-content page="welcome-view.html" id="contentRegion"></ons-splitter-content>
+			</ons-splitter>
+		</ons-page>
+	</template>
+
+	<template id="menu-view.html">
+		<ons-page id="menuView">
+			<ons-list>
+				<ons-list-item onClick="fn.load('view/list-view.html')" tappable>
+					List View
+				</ons-list-item>
+				<ons-list-item onClick="fn.load('view/slide-show.html')" tappable>
+					Slide Show
+				</ons-list-item>
+			</ons-list>
+		</ons-page>
+	</template>
+
+	<template id="welcome-view.html">
+		<ons-page id="welcomeView">
+			<ons-toolbar>
+				<div class="left">
+					<ons-toolbar-button id="button-toggle-menu">
+						<ons-icon icon="ion-navicon, material:md-menu" size="32px, material:24px"></ons-icon>
+					</ons-toolbar-button>
 				</div>
-				<div class="custom-footer">
-					<a href="#" class="btn-primary footer-btn" data-role="button" id="RandomButton" data-icon="random">New random quote</a>
-					<a href="#" class="btn-primary footer-btn" data-role="button" id="share-btn" data-icon="share-alt">Share this quote</a>
+				<div class="center">Welcome</div>
+			</ons-toolbar>
+
+			<div id="welcomeBlock">
+				<h1>Chào mừng đến với thế giới của Apache Cordova</h1>
+				<img style="display: inline-block; width:75%;" src="img/gif/dog_welcome.webp" alt="Cute dog" />
+				<p>By Thong Le - Lan Nguyen</p>
+			</div>
+		</ons-page>
+	</template>
+
+
+	</ons-page>
+
+	<script src="js/app.js"></script>
+	<script src="js/pages.js"></script>
+	<script src="js/controllers.js"></script>
+	<script src="js/services.js"></script>
+	
+
+	<!-- <ons-navigator animation="slide" swipeable id="myNavigator" page="page1.html"></ons-navigator>
+
+	<template id="page1.html">
+		<ons-page id="page1">
+
+			<ons-toolbar>
+				<div class="center">Page 1</div>
+			</ons-toolbar>
+
+			<ons-tabbar swipeable position="bottom">
+				<ons-tab page="/view/list-view/tab/tab1.html" label="Tab 1" icon="ion-home, material:md-home" badge="7" active>
+				</ons-tab>
+				<ons-tab page="/view/list-view/tab/tab2.html" label="Tab 2" icon="md-settings" active-icon="md-face">
+				</ons-tab>
+			</ons-tabbar>
+		</ons-page>
+	</template>
+
+	<template id="page2.html">
+		<ons-page id="page2">
+			<ons-toolbar>
+				<div class="left">
+					<ons-back-button>Page 1</ons-back-button>
 				</div>
-			</div>
-		</div>
+				<div class="center"></div>
+			</ons-toolbar>
 
-		<!-- Filters Page -->
-		<div data-role="page" id="filters" data-theme="a">
-			<div data-role="panel" data-display="overlay" id="menu-panel" class="right-panel" data-position="right">
-				<a href="#home" class="btn-primary" data-role="button" data-icon="quote-left" >Quotes</a>
-				<a href="#search" class="btn-primary" data-role="button" id="SearchButton" data-icon="search" >Search quotes</a>
-				<a href="#" data-role="button" class="btn-primary rate-btn" data-icon="star-empty" >Rate app</a>
-				<a href="mailto:feedback@modernfamilyquotes.net?subject=Modern%20Family%20Quotes%20App%20Feedback" class="btn-primary" data-role="button" data-icon="envelope-alt" >Give feedback</a>
-				<a href="mailto:submit@modernfamilyquotes.net?subject=A%20Quote%20For%20The%20Modern%20Family%20Quotes%20App" class="btn-primary" data-role="button" data-icon="envelope-alt" >Submit a quote</a>
-				<a href="#menu-panel" data-role="button" class="close" data-icon="remove">Close menu</a>
-			</div>
-			<div data-role="header" class="custom-header" data-tap-toggle="false" data-id="header" >
-				<a href="#menu-panel" class="menu"><span class="ui-icon-reorder"></span></a>
-				<div class="logo">Modern Family <span class="logo-highlight">Q</span>uotes</div>
-			</div>
-			<div data-role="content">
-				<h1>Filter by character</h1>
-				<form>
-					<fieldset class="filters" data-role="controlgroup">
-				        <input Search type="radio" name="radio" id="allRadioButton" value="on" checked="checked">
-				        <label id="all" for="allRadioButton">No filter - see all quotes</label>
-				        <input Search type="radio" name="radio" id="alexRadioButton" value="off">
-				        <label id="alex" for="alexRadioButton">Alex</label>
-				        <input Search type="radio" name="radio" id="cameronRadioButton" value="off">
-				        <label id="cameron" for="cameronRadioButton">Cameron</label>
-				        <input Search type="radio" name="radio" id="claireRadioButton" value="off">
-				        <label id="claire" for="claireRadioButton">Claire</label>
-				        <input Search type="radio" name="radio" id="gloriaRadioButton" value="off">
-				        <label id="gloria" for="gloriaRadioButton">Gloria</label>
-				        <input Search type="radio" name="radio" id="haleyRadioButton" value="off">
-				        <label id="haley" for="haleyRadioButton">Haley</label>
-				        <input Search type="radio" name="radio" id="jayRadioButton" value="off">
-				        <label id="jay" for="jayRadioButton">Jay</label>
-				        <input Search type="radio" name="radio" id="lukeRadioButton" value="off">
-				        <label id="luke" for="lukeRadioButton">Luke</label>
-				        <input Search type="radio" name="radio" id="mannyRadioButton" value="off">
-				        <label id="manny" for="mannyRadioButton">Manny</label>
-				        <input Search type="radio" name="radio" id="mitchellRadioButton" value="off">
-				        <label id="mitchell" for="mitchellRadioButton">Mitchell</label>
-				        <input Search type="radio" name="radio" id="philRadioButton" value="off">
-				        <label id="phil" for="philRadioButton">Phil</label>
-				    </fieldset>
-				</form>
-			</div>
-		</div>
+			<p>This is the second page.</p>
+		</ons-page>
+	</template> -->
+</body>
 
-		<!-- Search Page -->
-		<div data-role="page" id="search" data-theme="a">
-			<div data-role="panel" data-display="overlay" id="menu-panel" class="right-panel" data-position="right">
-				<a href="#home" class="btn-primary" data-role="button" data-icon="quote-left" >Quotes</a>
-				<a href="#filters" class="btn-primary" data-role="button" id="FiltersButton" data-icon="tag" >Filter by character</a>
-				<a href="#" data-role="button" class="btn-primary rate-btn" data-icon="star-empty" >Rate app</a>
-				<a href="mailto:feedback@modernfamilyquotes.net?subject=Modern%20Family%20Quotes%20App%20Feedback" class="btn-primary" data-role="button" data-icon="envelope-alt" >Give feedback</a>
-				<a href="mailto:submit@modernfamilyquotes.net?subject=A%20Quote%20For%20The%20Modern%20Family%20Quotes%20App" class="btn-primary" data-role="button" data-icon="envelope-alt" >Submit a quote</a>
-				<a href="#menu-panel" data-role="button" class="close" data-icon="remove">Close menu</a>
-			</div>
-			<div data-role="header"  class="custom-header" data-tap-toggle="false" data-id="header" >
-				<a href="#menu-panel" class="menu"><span class="ui-icon-reorder"></span></a>
-				<div class="logo">Modern Family <span class="logo-highlight">Q</span>uotes</div>
-			</div>
-			<div data-role="content">
-				<h1>Search quotes</h1>
-				<ul data-role="listview" id="searchList" data-filter-placeholder="Your search here..." data-inset="true" data-filter="true">
-					<!-- populates on page load -->
-				</ul>
-			</div>
-		</div>
-
-		<!-- Rate Dialog -->
-		<div data-role="dialog" id="rate-dialog" data-theme="a">
-		    <div data-role="content">
-		    	<h1>What do you think?</h1>
-		        <p>Do you like this app? If so, please take ten seconds to rate it. If not, please send some feedback so that the app can get better. Your opinion is very important!</p>
-		        <a href="#" data-role="button" class="btn-primary rate-btn" data-icon="star-empty" >Rate app</a>
-		        <a href="mailto:feedback@modernfamilyquotes.net?subject=Modern%20Family%20Quotes%20App%20Feedback" class="btn-primary return-home" data-role="button" data-icon="envelope-alt">Submit feedback</a>
-		        <a href="#" data-role="button" data-rel="back" data-icon="remove">Make this box go away.</a>
-		    </div>
-		    <div data-role="footer"></div>
-		</div>
-
-	</body>
 </html>
+
+	<!-- <ons-toolbar>
+				<div class="center">List View Demo</div>
+			</ons-toolbar>
+
+			<ons-tabbar swipeable position="bottom">
+				<ons-tab page="tab1.html" label="Tab 1" icon="ion-home, material:md-home" badge="7" active>
+				</ons-tab>
+				<ons-tab page="tab2.html" label="Tab 2" icon="md-settings" active-icon="md-face">
+				</ons-tab>
+
+				<template id="tab1.html">
+					<ons-page id="page1_tab1">
+						<p style="text-align: center;">
+							<p>This is the first page.</p>
+							<ons-button id="push-button">Push page</ons-button>
+						</p>
+					</ons-page>
+				</template>
+
+				<template id="tab2.html">
+					<ons-page id="page1_tab2">
+						<p style="text-align: center;">
+							This is the second page.
+						</p>
+					</ons-page>
+				</template>
+			</ons-tabbar> -->

@@ -1,0 +1,157 @@
+1.Creating a Page
+
+Page: init -> show -> hide -> destroy
+
+<ons-page id="helloworld-page">
+  <ons-toolbar>
+    <div class="center"></div>
+    <div class="right">
+      <ons-toolbar-button>
+        <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+      </ons-toolbar-button>
+    </div>
+  </ons-toolbar>
+
+  <p style="text-align: center">
+    <ons-button>Click me!</ons-button>
+  </p>
+</ons-page>
+
+document.addEventListener('init', function(event) {
+  var page = event.target;
+  if (page.matches('#myPageID') {
+    // Set up page's dynamic content or behavior
+    page.querySelector('ons-toolbar .center').innerHTML = 'Title';
+    page.querySelector('ons-button').onclick = function() {};
+    // ...
+  }
+});
+
+OR
+
+$(document).on('init', function (event) {
+    ...
+});
+
+<ons-page>
+  Content here
+
+  <script>
+    ons.getScriptPage().onInit = function() {
+      // Hooks are bound to the page element
+
+      this.querySelector('ons-toolbar .center').innerHTML = 'Title';
+      this.onShow = function() {};
+    };
+  </script>
+</ons-page>
+
+Toolbar: header text at left, center, right
+
+2.Stack Navigation
+
+<ons-navigator swipeable id="myNavigator" page="page1.html"></ons-navigator>
+
+<template id="page1.html">
+  <ons-page id="page1">
+    <ons-toolbar>
+      <div class="center">Page 1</div>
+    </ons-toolbar>
+
+    <p>This is the first page.</p>
+
+    <ons-button id="push-button">Push page</ons-button>
+  </ons-page>
+</template>
+
+<template id="page2.html">
+  <ons-page id="page2">
+    <ons-toolbar>
+      <div class="left"><ons-back-button>Page 1</ons-back-button></div>
+      <div class="center"></div>
+    </ons-toolbar>
+
+    <p>This is the second page.</p>
+  </ons-page>
+</template>
+
+document.addEventListener('init', function(event) {
+  var page = event.target;
+
+  if (page.id === 'page1') {
+    page.querySelector('#push-button').onclick = function() {
+      document.querySelector('#myNavigator').pushPage('page2.html', {data: {title: 'Page 2'}});
+    };
+  } else if (page.id === 'page2') {
+    page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+  }
+});
+
+Jquery note:
+    $('#myNavigator')[0].pushPage
+
+pushPage(page, options)
+    Page: intent
+    Options: putExtras
+
+Promise: 
+    myNavigator
+        .pushPage('page2.html')
+        .then(function() {
+            ons.notification.alert('Page pushed!');
+        });
+
+<ons-navigator animation="fade"></ons-navigator>
+    fade
+    lift
+    slide
+    none
+
+For iOS’ “swipe to pop” feature, add the swipeable attribute. Note that this behavior is automatically removed on Android platforms unless swipeable="force" is specified.
+
+3.Using Tabs
+<ons-page>
+  <ons-toolbar>
+    <div class="center">Tab 1</div>
+  </ons-toolbar>
+
+  <ons-tabbar swipeable position="auto">
+    <ons-tab page="tab1.html" label="Tab 1" icon="ion-home, material:md-home" badge="7" active>
+    </ons-tab>
+    <ons-tab page="tab2.html" label="Tab 2" icon="md-settings" active-icon="md-face">
+    </ons-tab>
+  </ons-tabbar>
+</ons-page>
+
+<template id="tab1.html">
+  <ons-page id="Tab1">
+    <p style="text-align: center;">
+      This is the first page.
+    </p>
+  </ons-page>
+</template>
+
+<template id="tab2.html">
+  <ons-page id="Tab2">
+    <p style="text-align: center;">
+      This is the second page.
+    </p>
+  </ons-page>
+</template>
+
+    active
+    page, label, icon
+        <ons-tab page="...">
+            <input type="radio" style="display: none">
+            <button class="tabbar__button">
+                <div class="tabbar__icon">
+                <ons-icon icon="my-icon"></ons-icon>
+                </div>
+                <div class="tabbar__label">My Label</div>
+                <div class="tabbar__badge notification">99</div>
+            </button>
+        </ons-tab>
+        autogrow
+    
+
+4.Slide Menu
