@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace MobileApi
+namespace WebApi
 {
     public class Program
     {
@@ -20,6 +20,7 @@ namespace MobileApi
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                .UseUrls("http://192.168.2.2:3022/")
                 .Build();
     }
 }

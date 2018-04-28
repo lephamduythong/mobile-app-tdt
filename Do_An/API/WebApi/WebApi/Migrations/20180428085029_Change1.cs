@@ -2,23 +2,24 @@
 using System;
 using System.Collections.Generic;
 
-namespace MobileApi.Migrations
+namespace WebApi.Migrations
 {
-    public partial class Student_Change : Migration
+    public partial class Change1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "Gender",
-                table: "Students",
-                nullable: true);
+            migrationBuilder.AddColumn<int>(
+                name: "CategoryId",
+                table: "Products",
+                nullable: false,
+                defaultValue: 0);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Gender",
-                table: "Students");
+                name: "CategoryId",
+                table: "Products");
         }
     }
 }

@@ -16,14 +16,22 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.lanbao.christ.shoponline.R;
 import com.lanbao.christ.shoponline.adapter.PhoneAdapter;
 import com.lanbao.christ.shoponline.model.Product;
+import com.lanbao.christ.shoponline.ultil.Server;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 public class PhoneActivity extends AppCompatActivity {
-
     Toolbar toolbarPhone;
     ListView listViewPhone;
     PhoneAdapter phoneAdapter;
@@ -86,27 +94,63 @@ public class PhoneActivity extends AppCompatActivity {
     }
 
     private void GetData() {
-        Product pro1 = new Product(1,"Apple iPhone 7 Plus 32GB", 17190000, R.drawable.apple7plus32, "Hệ điều hành iOS 10\n" +
-                "Màn hình 5.5inch LED-backlit IPS LCD 1080 x 1920",1);
-        Product pro2 = new Product(2,"Apple iPhone 8 Plus 64GB", 21089000, R.drawable.apple8plus64, "Màn hình Retina HD 5.5 inch với True Tone\n" +
-                "Thiết kế hoàn toàn bằng kính và nhôm, chống nước và chống bụi",1);
-        Product pro3 = new Product(3,"Apple iPhone X 64GB Space Grey", 25489000, R.drawable.apple1064, "Màn hình Super Retina HD 5.8 inch với HDR và True Tone\n" +
-                "Thiết kế hoàn toàn bằng kính và thép không gỉ, chống nước và chống bụi",1);
-        Product pro4 = new Product(4,"Apple Macbook Air MMGG2 13.3inch", 23300000, R.drawable.macbookair, "Màn hình 13 inch LED\n" +
-                "Bộ vi xử lý Intel Core i5-5250U 1.6GHz Turbo boost nâng xung nhịp lên 2.7 GHz",2);
-        Product pro5 = new Product(5,"OPPO F3 Plus 4GB 64GB",10690000,R.drawable.oppof3,"Màn hình : 6.0 inch (1080 x 1920 pixels)\n" +
-                "Camera : Chính: 16.0 MP, Phụ: Dual 16.0 MP + 8.0 MP\n" +
-                "RAM : 4 GB\n" +
-                "Bộ nhớ trong : 64 GB",1);
-        Product pro6 = new Product(6,"OPPO F7 64GB",7050000,R.drawable.oppof7,"Hệ điều hành:ColorOS 5.0 (Android 8.1)\n" +
-                "Camera sau:16 MP\n" +
-                "Camera trước:25 MP\n" +
-                "CPU:MediaTek Helio P60",1);
-        Product pro7 = new Product(7,"Samsung Galaxy S9 Plus 128GB", 24990000, R.drawable.apple7plus32, "Màn hình: Super AMOLED, 6.22\", Quad HD+ (2K+)\n" +
-                "Hệ điều hành: Android 8.0 (Oreo)\n" +
-                "Camera sau: 12 MP",1);
-        data.add(pro1);  data.add(pro2);  data.add(pro3);  data.add(pro4);  data.add(pro5); data.add(pro6); data.add(pro7);
-        phoneAdapter.notifyDataSetChanged();
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.productPath + "GetByCategory/1", new com.android.volley.Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                Log.d("TEST", "Get response");
+                if (response != null) {
+                    for (int i = 0; i < response.length(); i++) {
+                        try {
+                            JSONObject jsonObject = response.getJSONObject(i);
+
+                            Product newProduct = new Product(
+                                    jsonObject.getInt("id"),
+                                    jsonObject.getString("name"),
+                                    jsonObject.getInt("price"),
+                                    R.drawable.apple7plus32,
+                                    jsonObject.getString("description"),
+                                    jsonObject.getInt("categoryId"));
+
+                            data.add(newProduct);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    phoneAdapter.notifyDataSetChanged();
+                }
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("TEST", "Error");
+            }
+        });
+        requestQueue.add(jsonArrayRequest);
+
+//        Product pro1 = new Product(1,"Apple iPhone 7 Plus 32GB", 17190000, R.drawable.apple7plus32, "Hệ điều hành iOS 10\n" +
+//                "Màn hình 5.5inch LED-backlit IPS LCD 1080 x 1920",1);
+//        Product pro2 = new Product(2,"Apple iPhone 8 Plus 64GB", 21089000, R.drawable.apple8plus64, "Màn hình Retina HD 5.5 inch với True Tone\n" +
+//                "Thiết kế hoàn toàn bằng kính và nhôm, chống nước và chống bụi",1);
+//        Product pro3 = new Product(3,"Apple iPhone X 64GB Space Grey", 25489000, R.drawable.apple1064, "Màn hình Super Retina HD 5.8 inch với HDR và True Tone\n" +
+//                "Thiết kế hoàn toàn bằng kính và thép không gỉ, chống nước và chống bụi",1);
+//        Product pro4 = new Product(4,"Apple Macbook Air MMGG2 13.3inch", 23300000, R.drawable.macbookair, "Màn hình 13 inch LED\n" +
+//                "Bộ vi xử lý Intel Core i5-5250U 1.6GHz Turbo boost nâng xung nhịp lên 2.7 GHz",2);
+//        Product pro5 = new Product(5,"OPPO F3 Plus 4GB 64GB",10690000,R.drawable.oppof3,"Màn hình : 6.0 inch (1080 x 1920 pixels)\n" +
+//                "Camera : Chính: 16.0 MP, Phụ: Dual 16.0 MP + 8.0 MP\n" +
+//                "RAM : 4 GB\n" +
+//                "Bộ nhớ trong : 64 GB",1);
+//        Product pro6 = new Product(6,"OPPO F7 64GB",7050000,R.drawable.oppof7,"Hệ điều hành:ColorOS 5.0 (Android 8.1)\n" +
+//                "Camera sau:16 MP\n" +
+//                "Camera trước:25 MP\n" +
+//                "CPU:MediaTek Helio P60",1);
+//        Product pro7 = new Product(7,"Samsung Galaxy S9 Plus 128GB", 24990000, R.drawable.apple7plus32, "Màn hình: Super AMOLED, 6.22\", Quad HD+ (2K+)\n" +
+//                "Hệ điều hành: Android 8.0 (Oreo)\n" +
+//                "Camera sau: 12 MP",1);
+//        data.add(pro1);  data.add(pro2);  data.add(pro3);  data.add(pro4);  data.add(pro5); data.add(pro6); data.add(pro7);
+//        phoneAdapter.notifyDataSetChanged();
     }
 
     private void ActionToolBar() {

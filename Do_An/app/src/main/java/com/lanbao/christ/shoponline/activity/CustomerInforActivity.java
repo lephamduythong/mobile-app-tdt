@@ -11,7 +11,6 @@ import com.lanbao.christ.shoponline.R;
 
 public class CustomerInforActivity extends AppCompatActivity {
 
-    EditText edtNameCustomer, edtEmail, edtPhoneNumber;
     Button btnXacNhan, btnReturn;
 
     @Override
@@ -19,12 +18,6 @@ public class CustomerInforActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_infor);
         InitViews();
-        btnReturn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
         EventButton();
     }
 
@@ -32,23 +25,20 @@ public class CustomerInforActivity extends AppCompatActivity {
         btnXacNhan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name  = edtNameCustomer.getText().toString().trim();
-                String phone = edtPhoneNumber.getText().toString().trim();
-                String email = edtEmail.getText().toString().trim();
-                if(name.length() > 0 && phone.length() > 0 && email.length() > 0){
+            Toast.makeText(getApplicationContext(), "Đã thêm vào đơn hàng của bạn", Toast.LENGTH_LONG).show();
 
-                }
-                else {
-                    Toast.makeText(CustomerInforActivity.this,"Hãy kiểm tra lại dữ liệu",Toast.LENGTH_LONG).show();
-                }
+            // Insert new bill
+            }
+        });
+        btnReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }
 
     private void InitViews() {
-        edtNameCustomer = (EditText) findViewById(R.id.edittextnamecustomer);
-        edtEmail        = (EditText) findViewById(R.id.edittextemail);
-        edtPhoneNumber  = (EditText) findViewById(R.id.edittextphonenumber);
         btnXacNhan      = (Button) findViewById(R.id.buttonxacnhan);
         btnReturn       = (Button) findViewById(R.id.buttontrove);
     }

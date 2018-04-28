@@ -8,11 +8,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using WebApi.Models;
 using Microsoft.EntityFrameworkCore;
-using MobileApi.Models;
-using MobileApi.Models.Context;
 
-namespace MobileApi
+namespace WebApi
 {
     public class Startup
     {
@@ -26,9 +25,10 @@ namespace MobileApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // services.AddDbContext<TestContext>(opt => opt.UseInMemoryDatabase("TestInMemoryDatabase"));
-            services.AddDbContext<TestContext>(opt => opt.UseSqlite("Data Source=test.db"));
             services.AddMvc();
+            services.AddDbContext<ShopOnlineContext>(options => options.UseSqlite("Data Source=database.db"));
+            //services.AddDbContext<ShopOnlineContext>(opt => 
+            //    opt.UseInMemoryDatabase("ShopOnlineDatabase"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

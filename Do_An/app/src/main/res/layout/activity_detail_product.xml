@@ -58,7 +58,7 @@
             </Spinner>
             <Button
                 android:id="@+id/buttonPurchase"
-                android:textColor="#4adfc6"
+                android:textColor="#d52dd8"
                 android:textSize="15sp"
                 android:text="Thêm giỏ hàng"
                 android:layout_width="match_parent"

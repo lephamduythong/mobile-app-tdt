@@ -109,7 +109,7 @@ public class DetailProductActivity extends AppCompatActivity {
         price = product.getPrice();
         image = product.getImage();
         descriptionDetail = product.getDescription();
-        idCate = product.getIdcate();
+        // idCate = product.getIdcate();
         txtName.setText(namedetail);
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         txtPrice.setText("Giá : " + decimalFormat.format(product.getPrice()) + " Đ");

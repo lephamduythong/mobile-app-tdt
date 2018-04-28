@@ -2,6 +2,8 @@ package com.lanbao.christ.shoponline.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.provider.Settings;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,8 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lanbao.christ.shoponline.R;
+import com.lanbao.christ.shoponline.activity.authentication.CustomerLoginActivity;
 import com.lanbao.christ.shoponline.adapter.CartAdapter;
 import com.lanbao.christ.shoponline.model.Cart;
+import com.lanbao.christ.shoponline.ultil.GlobalVars;
 
 import java.text.DecimalFormat;
 
@@ -45,14 +49,25 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(MainActivity.dataCart.size() > 0){
-                    Intent intent = new Intent(getApplicationContext(), CustomerInforActivity.class);
-                    startActivity(intent);
+
+                    if (GlobalVars.isLogin) {
+                        Intent intent = new Intent(getApplicationContext(), CustomerInforActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Bạn cần phải đăng nhập", Toast.LENGTH_LONG).show();
+                        finish();
+
+                        Intent intent1000 = new Intent(getApplicationContext(), CustomerLoginActivity.class);
+                        // intent1000.putExtra("idCategory",listCate.get(i).getId());
+                        startActivity(intent1000);
+                    }
                 }
                 else {
                     Toast.makeText(CartActivity.this, "Giỏ hàng của bạn chưa có sản phẩm để thanh toán", Toast.LENGTH_LONG).show();
                 }
             }
         });
+
         btnTiepTucMua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
