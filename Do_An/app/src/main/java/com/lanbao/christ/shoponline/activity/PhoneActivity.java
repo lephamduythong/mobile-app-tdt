@@ -48,7 +48,6 @@ public class PhoneActivity extends AppCompatActivity {
         GetIdCategory();
         ActionToolBar();
         GetData();
-        LoadMoreData();
         listViewPhone.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -75,22 +74,6 @@ public class PhoneActivity extends AppCompatActivity {
                 startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void LoadMoreData() {
-        listViewPhone.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView absListView, int i) {
-
-            }
-
-            @Override
-            public void onScroll(AbsListView absListView, int FirstItem, int VisibleItem, int TotalItem) {
-                if(FirstItem + VisibleItem == TotalItem && TotalItem != 0 && isLoading == false) {
-
-                }
-            }
-        });
     }
 
     private void GetData() {
@@ -175,8 +158,6 @@ public class PhoneActivity extends AppCompatActivity {
         data     = new ArrayList<>();
         phoneAdapter  = new PhoneAdapter(getApplicationContext(), data);
         listViewPhone.setAdapter(phoneAdapter);
-        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-//        footerView = inflater.inflate(R.layout.progressbar,null);
     }
 
     public class mHandler extends Handler{

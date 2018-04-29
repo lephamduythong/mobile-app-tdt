@@ -13,7 +13,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.lanbao.christ.shoponline.R;
-import com.lanbao.christ.shoponline.activity.MainActivity;
 import com.lanbao.christ.shoponline.ultil.GlobalVars;
 import com.lanbao.christ.shoponline.ultil.Server;
 
@@ -63,13 +62,10 @@ public class CustomerLoginActivity extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = response.getJSONObject(i);
                             String email = jsonObject.getString("email");
-                            String password = jsonObject.getString("password");
-                            Log.d("TEST", email);
-                            Log.d("TEST", password);
-                            if (email.equals(edtEmail.getText().toString().trim()) && password.equals(edtPassword.getText().toString().trim())) {
+                            String password = jsonObject.getString("password");                            if (email.equals(edtEmail.getText().toString().trim()) && password.equals(edtPassword.getText().toString().trim())) {
                                 Toast.makeText(getApplicationContext(), "Đăng nhập thành công", Toast.LENGTH_LONG).show();
                                 GlobalVars.isLogin = true;
-                                GlobalVars.activeEmail = email;
+                                GlobalVars.activeUserId = jsonObject.getInt("id");
                                 finish();
                             } else if ( i == response.length() - 1 ) {
                                 Toast.makeText(getApplicationContext(), "Email dăng ký không tồn tại", Toast.LENGTH_LONG).show();

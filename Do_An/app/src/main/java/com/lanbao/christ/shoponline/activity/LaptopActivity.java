@@ -39,8 +39,6 @@ public class LaptopActivity extends AppCompatActivity {
     LaptopAdapter laptopAdapter;
     ArrayList<Product> data;
     int idLaptop = 0;
-    View footerView;
-    boolean isLoading = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +48,6 @@ public class LaptopActivity extends AppCompatActivity {
         GetIdCategory();
         ActionToolBar();
         GetData();
-        LoadMoreData();
         listViewLaptop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -78,22 +75,6 @@ public class LaptopActivity extends AppCompatActivity {
                 startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void LoadMoreData() {
-        listViewLaptop.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView absListView, int i) {
-
-            }
-
-            @Override
-            public void onScroll(AbsListView absListView, int FirstItem, int VisibleItem, int TotalItem) {
-                if(FirstItem + VisibleItem == TotalItem && TotalItem != 0 && isLoading == false) {
-
-                }
-            }
-        });
     }
 
     private void GetData() {
@@ -177,8 +158,6 @@ public class LaptopActivity extends AppCompatActivity {
         data     = new ArrayList<>();
         laptopAdapter  = new LaptopAdapter(getApplicationContext(), data);
         listViewLaptop.setAdapter(laptopAdapter);
-        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-//        footerView = inflater.inflate(R.layout.progressbar,null);
     }
 
     public class mHandler extends Handler {

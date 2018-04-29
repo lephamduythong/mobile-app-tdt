@@ -154,12 +154,14 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 1002: // Logout
                         GlobalVars.isLogin = false;
-                        GlobalVars.activeEmail = null;
+                        GlobalVars.activeUserId = -1;
                         Toast.makeText(getApplicationContext(), "Đăng xuất thành công", Toast.LENGTH_LONG).show();
                         refreshLogout();
                         break;
                     case 1003: // Bills board
+                        Intent intent1003 = new Intent(MainActivity.this,BillActivity.class);
 
+                        startActivity(intent1003);
                         break;
                 }
             }
@@ -265,35 +267,7 @@ public class MainActivity extends AppCompatActivity {
             categoryAdapter.notifyDataSetChanged();
         }
     }
-    /*private void getDataCategory(){
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.pathCategory, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                if (response != null) {
-                    for (int i = 0; i < response.length(); i++) {
-                        try {
-                            JSONObject jsonObject = response.getJSONObject(i);
-                            id = jsonObject.getInt("id");
-                            nameCategoryPro = jsonObject.getString("name");
-                            imageCategoryPro = jsonObject.getString("image");
-                            listCate.add(new Category(id, nameCategoryPro, imageCategoryPro));
-                            categoryAdapter.notifyDataSetChanged();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
 
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                CheckConnection.showToast_Short(getApplicationContext(), error.toString());
-            }
-        });
-        requestQueue.add(jsonArrayRequest);
-    }*/
 
     private void ActionViewFlipper(){
         ArrayList<String> arrquangcao = new ArrayList<>();

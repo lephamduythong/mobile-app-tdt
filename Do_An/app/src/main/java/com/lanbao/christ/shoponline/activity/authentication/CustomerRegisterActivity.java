@@ -99,8 +99,6 @@ public class CustomerRegisterActivity extends AppCompatActivity {
         requestQueue.add(request_json);
     }
 
-
-
     private void InitViews() {
         edtNameCustomer = (EditText) findViewById(R.id.edittextnamecustomer_register);
         edtEmail        = (EditText) findViewById(R.id.edittextemail_register);

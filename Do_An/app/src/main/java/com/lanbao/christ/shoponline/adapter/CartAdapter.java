@@ -23,7 +23,6 @@ public class CartAdapter extends BaseAdapter {
 
     Context context;
     ArrayList<Cart> arrCart;
-    ViewHolder viewHolder = null;
 
     public CartAdapter(Context context, ArrayList<Cart> arrCart) {
         this.context = context;
@@ -54,87 +53,81 @@ public class CartAdapter extends BaseAdapter {
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
 
-        if(view == null){
-            viewHolder = new ViewHolder();
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.item_cart,null);
-            viewHolder.txtNameCart  = (TextView) view.findViewById(R.id.textviewnamecart);
-            viewHolder.txtPriceCart = (TextView) view.findViewById(R.id.textviewpricecart);
-            viewHolder.imageCart    = (ImageView) view.findViewById(R.id.imageviewCart);
-            viewHolder.btnMinus     = (Button) view.findViewById(R.id.buttonminus);
-            viewHolder.btnValues    = (Button) view.findViewById(R.id.buttonvalues);
-            viewHolder.btnPlus      = (Button) view.findViewById(R.id.buttonplus);
-            view.setTag(viewHolder);
-        }
-        else {
-            viewHolder = (ViewHolder) view.getTag();
-        }
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        view = inflater.inflate(R.layout.item_cart,null);
+        TextView txtNameCart  = (TextView) view.findViewById(R.id.textviewnamecart);
+        final TextView txtPriceCart = (TextView) view.findViewById(R.id.textviewpricecart);
+        ImageView imageCart    = (ImageView) view.findViewById(R.id.imageviewCart);
+        final Button btnMinus     = (Button) view.findViewById(R.id.buttonminus);
+        final Button btnValues    = (Button) view.findViewById(R.id.buttonvalues);
+        final Button btnPlus      = (Button) view.findViewById(R.id.buttonplus);
+
         Cart cart = (Cart) getItem(i);
-        viewHolder.txtNameCart.setText(cart.getNamePro());
+        txtNameCart.setText(cart.getNamePro());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        viewHolder.txtPriceCart.setText(decimalFormat.format(cart.getPricePro()) + " Đ");
+        txtPriceCart.setText(decimalFormat.format(cart.getPricePro()) + " Đ");
         Picasso.with(context).load(cart.getImagePro())
                 .placeholder(R.drawable.noimage)
                 .error(R.drawable.error)
-                .into(viewHolder.imageCart);
-        viewHolder.btnValues.setText(cart.getNumberPro() + "");
-        int sl = Integer.parseInt(viewHolder.btnValues.getText().toString());
+                .into(imageCart);
+        btnValues.setText(cart.getNumberPro() + "");
+        int sl = Integer.parseInt(btnValues.getText().toString());
         if(sl >= 10){
-            viewHolder.btnPlus.setVisibility(View.INVISIBLE);
-            viewHolder.btnMinus.setVisibility(View.VISIBLE);
+            btnPlus.setVisibility(View.INVISIBLE);
+            btnMinus.setVisibility(View.VISIBLE);
         }
         else if(sl <= 1){
-            viewHolder.btnMinus.setVisibility(View.INVISIBLE);
+            btnMinus.setVisibility(View.INVISIBLE);
         }
         else if(sl >= 1){
-            viewHolder.btnPlus.setVisibility(View.VISIBLE);
-            viewHolder.btnMinus.setVisibility(View.VISIBLE);
+            btnPlus.setVisibility(View.VISIBLE);
+            btnMinus.setVisibility(View.VISIBLE);
         }
-        viewHolder.btnPlus.setOnClickListener(new View.OnClickListener() {
+        btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ViewHolder v = viewHolder;
-                int slmoinhat = Integer.parseInt(viewHolder.btnValues.getText().toString()) + 1;
+
+                int slmoinhat = Integer.parseInt(btnValues.getText().toString()) + 1;
                 int slht      = MainActivity.dataCart.get(i).getNumberPro();
                 long priceht  = MainActivity.dataCart.get(i).getPricePro();
                 MainActivity.dataCart.get(i).setNumberPro(slmoinhat);
                 long pricemoinhat = (priceht * slmoinhat) / slht;
                 MainActivity.dataCart.get(i).setPricePro(pricemoinhat);
                 DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-                viewHolder.txtPriceCart.setText(decimalFormat.format(pricemoinhat) + " Đ");
+                txtPriceCart.setText(decimalFormat.format(pricemoinhat) + " Đ");
                 CartActivity.EventUltil();
                 if(slmoinhat > 9){
-                    viewHolder.btnPlus.setVisibility(View.INVISIBLE);
-                    viewHolder.btnMinus.setVisibility(View.VISIBLE);
-                    viewHolder.btnValues.setText(String.valueOf(slmoinhat));
+                    btnPlus.setVisibility(View.INVISIBLE);
+                    btnMinus.setVisibility(View.VISIBLE);
+                    btnValues.setText(String.valueOf(slmoinhat));
                 }
                 else {
-                    viewHolder.btnPlus.setVisibility(View.VISIBLE);
-                    viewHolder.btnMinus.setVisibility(View.VISIBLE);
-                    viewHolder.btnValues.setText(String.valueOf(slmoinhat));
+                    btnPlus.setVisibility(View.VISIBLE);
+                    btnMinus.setVisibility(View.VISIBLE);
+                    btnValues.setText(String.valueOf(slmoinhat));
                 }
             }
         });
-        viewHolder.btnMinus.setOnClickListener(new View.OnClickListener() {
+        btnMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int slmoinhat = Integer.parseInt(viewHolder.btnValues.getText().toString()) - 1;
+                int slmoinhat = Integer.parseInt(btnValues.getText().toString()) - 1;
                 int slht = MainActivity.dataCart.get(i).getNumberPro();
                 long priceht = MainActivity.dataCart.get(i).getPricePro();
                 MainActivity.dataCart.get(i).setNumberPro(slmoinhat);
                 long pricemoinhat = (priceht * slmoinhat) / slht;
                 MainActivity.dataCart.get(i).setPricePro(pricemoinhat);
                 DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-                viewHolder.txtPriceCart.setText(decimalFormat.format(pricemoinhat) + " Đ");
+                txtPriceCart.setText(decimalFormat.format(pricemoinhat) + " Đ");
                 CartActivity.EventUltil();
                 if (slmoinhat < 2) {
-                    viewHolder.btnMinus.setVisibility(View.INVISIBLE);
-                    viewHolder.btnPlus.setVisibility(View.VISIBLE);
-                    viewHolder.btnValues.setText(String.valueOf(slmoinhat));
+                    btnMinus.setVisibility(View.INVISIBLE);
+                    btnPlus.setVisibility(View.VISIBLE);
+                    btnValues.setText(String.valueOf(slmoinhat));
                 } else {
-                    viewHolder.btnPlus.setVisibility(View.VISIBLE);
-                    viewHolder.btnMinus.setVisibility(View.VISIBLE);
-                    viewHolder.btnValues.setText(String.valueOf(slmoinhat));
+                    btnPlus.setVisibility(View.VISIBLE);
+                    btnMinus.setVisibility(View.VISIBLE);
+                    btnValues.setText(String.valueOf(slmoinhat));
                 }
             }
         });
