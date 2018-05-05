@@ -22,11 +22,19 @@ import java.util.ArrayList;
 public class CartAdapter extends BaseAdapter {
 
     Context context;
-    ArrayList<Cart> arrCart;
+    static ArrayList<Cart> arrCart;
 
     public CartAdapter(Context context, ArrayList<Cart> arrCart) {
         this.context = context;
         this.arrCart = arrCart;
+    }
+
+    public static ArrayList<Cart> getItems() {
+        return arrCart;
+    }
+
+    public static void clearCart() {
+        arrCart.clear();
     }
 
     @Override

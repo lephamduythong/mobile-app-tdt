@@ -99,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // private static final int LOGIN_ACTIVITY_REQUEST_CODE = 0;
+
     private void catchOnItemListView() {
         listViewHome.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -141,9 +143,9 @@ public class MainActivity extends AppCompatActivity {
 
                     case 1000: // Login
                         Intent intent1000 = new Intent(MainActivity.this, CustomerLoginActivity.class);
-                        // intent1000.putExtra("idCategory",listCate.get(i).getId());
                         startActivity(intent1000);
                         drawerLayout.closeDrawer(GravityCompat.START);
+                        // intent1000.putExtra("idCategory",listCate.get(i).getId());
                         break;
                     case 1001: // Register
                         Log.d("TEST","Register");
@@ -156,11 +158,11 @@ public class MainActivity extends AppCompatActivity {
                         GlobalVars.isLogin = false;
                         GlobalVars.activeUserId = -1;
                         Toast.makeText(getApplicationContext(), "Đăng xuất thành công", Toast.LENGTH_LONG).show();
-                        refreshLogout();
+                        onResume();
+                        // refreshLogout();
                         break;
                     case 1003: // Bills board
                         Intent intent1003 = new Intent(MainActivity.this,BillActivity.class);
-
                         startActivity(intent1003);
                         break;
                 }
@@ -176,20 +178,32 @@ public class MainActivity extends AppCompatActivity {
 
         listCate.add(cate1);
         listCate.add(cate2);
+
+
+
 //        listCate.add(cate3);
 //        listCate.add(cate4);
+//        Log.d("TEST", "Take me to your");
 
-        Log.d("TEST","Add 1000");
-        loginCate = new Category(1000, "Đăng nhập", R.drawable.login);
-        registerCate = new Category(1001, "Đăng ký", R.drawable.register);
-        listCate.add(loginCate);
-        listCate.add(registerCate);
+//        if (GlobalVars.isLogin) {
+//            Log.d("TEST", "heart");
+//            logoutCate = new Category(1002, "Đăng xuất", R.drawable.logout);
+//            billCate = new Category(1003, "Đơn hàng", R.drawable.cart);
+//            listCate.add(billCate);
+//            listCate.add(logoutCate);
+//            categoryAdapter.notifyDataSetChanged();
+//        } else {
+//            Log.d("TEST", "shit");
+//            loginCate = new Category(1000, "Đăng nhập", R.drawable.login);
+//            registerCate = new Category(1001, "Đăng ký", R.drawable.register);
+//            listCate.add(loginCate);
+//            listCate.add(registerCate);
+//        }
 
         categoryAdapter.notifyDataSetChanged();
     }
 
     private void getDataNewProduct(){
-
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         final JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Server.productPath + "GetNewProducts", new com.android.volley.Response.Listener<JSONArray>() {
             @Override
@@ -258,16 +272,51 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (GlobalVars.isLogin) {
-            logoutCate = new Category(1002, "Đăng xuất", R.drawable.logout);
-            billCate = new Category(1003, "Đơn hàng", R.drawable.cart);
-            listCate.add(billCate);
-            listCate.add(logoutCate);
+            Log.d("TEST","LOGOUT Change me");
+            if (billCate == null) {
+                logoutCate = new Category(1002, "Đăng xuất", R.drawable.logout);
+                billCate = new Category(1003, "Đơn hàng", R.drawable.cart);
+                listCate.add(billCate);
+                listCate.add(logoutCate);
+            } else if (!listCate.contains(billCate)) {
+                listCate.add(billCate);
+                listCate.add(logoutCate);
+            }
             listCate.remove(loginCate);
             listCate.remove(registerCate);
+            categoryAdapter.notifyDataSetChanged();
+        } else {
+            Log.d("TEST","LOGIN Change me");
+            if (loginCate == null) {
+                loginCate = new Category(1000, "Đăng nhập", R.drawable.login);
+                registerCate = new Category(1001, "Đăng ký", R.drawable.register);
+                listCate.add(loginCate);
+                listCate.add(registerCate);
+            }
+            else if (!listCate.contains(loginCate)) {
+                listCate.add(loginCate);
+                listCate.add(registerCate);
+            }
+            listCate.remove(billCate);
+            listCate.remove(logoutCate);
             categoryAdapter.notifyDataSetChanged();
         }
     }
 
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == LOGIN_ACTIVITY_REQUEST_CODE) {
+//            if (resultCode == RESULT_OK) {
+//                listCate.add(billCate);
+//                listCate.add(logoutCate);
+//                listCate.remove(loginCate);
+//                listCate.remove(registerCate);
+//                categoryAdapter.notifyDataSetChanged();
+//            }
+//        }
+//    }
 
     private void ActionViewFlipper(){
         ArrayList<String> arrquangcao = new ArrayList<>();

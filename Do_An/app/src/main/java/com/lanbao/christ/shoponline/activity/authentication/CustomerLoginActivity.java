@@ -1,5 +1,6 @@
 package com.lanbao.christ.shoponline.activity.authentication;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -66,7 +67,13 @@ public class CustomerLoginActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Đăng nhập thành công", Toast.LENGTH_LONG).show();
                                 GlobalVars.isLogin = true;
                                 GlobalVars.activeUserId = jsonObject.getInt("id");
+
+                                Intent intent = new Intent();
+                                intent.putExtra("noRefresh", "1");
+                                setResult(RESULT_OK, intent);
                                 finish();
+
+                                break;
                             } else if ( i == response.length() - 1 ) {
                                 Toast.makeText(getApplicationContext(), "Email dăng ký không tồn tại", Toast.LENGTH_LONG).show();
                             }

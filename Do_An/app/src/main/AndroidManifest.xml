@@ -25,10 +25,10 @@
         <activity android:name=".activity.LifeStyleActivity" />
         <activity android:name=".activity.DetailProductActivity" />
         <activity android:name=".activity.CartActivity" />
-        <activity android:name=".activity.CustomerInforActivity" />
+        <activity android:name=".activity.CustomerInforActivity" android:launchMode="singleTask" />
         <activity android:name=".activity.authentication.CustomerRegisterActivity" />
         <activity android:name=".activity.authentication.CustomerLoginActivity" />
-        <activity android:name=".activity.BillActivity"></activity>
+        <activity android:name=".activity.BillActivity" />
     </application>
 
 </manifest>

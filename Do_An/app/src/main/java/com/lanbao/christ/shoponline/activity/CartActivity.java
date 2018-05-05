@@ -49,7 +49,6 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(MainActivity.dataCart.size() > 0){
-
                     if (GlobalVars.isLogin) {
                         Intent intent = new Intent(getApplicationContext(), CustomerInforActivity.class);
                         startActivity(intent);
@@ -75,6 +74,18 @@ public class CartActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (CartAdapter.getItems().size() == 0) {
+            textViewMessage.setText("Giỏ hàng đang trống");
+            textViewMessage.setVisibility(View.VISIBLE);
+            listViewCart.setVisibility(View.INVISIBLE);
+            textViewSumPrice.setText("0Đ");
+            cartAdapter.notifyDataSetChanged();
+        }
     }
 
     private void CatchOnItemListView() {
