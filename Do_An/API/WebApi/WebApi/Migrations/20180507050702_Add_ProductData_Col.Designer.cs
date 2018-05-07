@@ -10,9 +10,10 @@ using WebApi.Models;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(ShopOnlineContext))]
-    partial class ShopOnlineContextModelSnapshot : ModelSnapshot
+    [Migration("20180507050702_Add_ProductData_Col")]
+    partial class Add_ProductData_Col
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

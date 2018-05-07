@@ -13,7 +13,7 @@ namespace WebApi.Models
         public string DateCreated { get; set; }
         public int Status { get; set; }
         public int CustomerId { get; set; }
-
+        public string ProductData { get; set; }
         // public virtual Customer Customer { get; set; }
     }
 }

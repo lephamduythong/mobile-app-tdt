@@ -27,22 +27,22 @@ namespace WebApi.Controllers
         }
 
         // GET: api/BillDetails/5
-        [HttpGet("{idBill}and{idProduct}")]
-        public async Task<IActionResult> Getbill([FromRoute] int idBill, [FromRoute] int idProduct)
+        [HttpGet("{idBill}")]
+        public async Task<IActionResult> GetBillDetail([FromRoute] int idBill)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var bill = await _context.BillDetails.Where(m => m.BillId == idBill && m.ProductId == idProduct).ToListAsync();
+            var billDetail = await _context.BillDetails.Where(m => m.BillId == idBill).ToListAsync();
 
-            if (bill == null)
+            if (billDetail == null)
             {
                 return NotFound();
             }
 
-            return Ok(bill);
+            return Ok(billDetail);
         }
 
         [HttpPost]

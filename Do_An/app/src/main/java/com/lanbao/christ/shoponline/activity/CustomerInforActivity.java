@@ -50,17 +50,24 @@ public class CustomerInforActivity extends AppCompatActivity {
             ArrayList<Cart> list = CartAdapter.getItems();
             Log.d("TEST", list.get(0).getNamePro());
 
-
-
             // Insert new bill
             HashMap<String, String> params = new HashMap<String, String>();
-            SimpleDateFormat s = new SimpleDateFormat("ddMMyyyyhhmmss");
+            SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
             String currentDate = s.format(new Date());
             params.put("dateCreated", currentDate);
             params.put("status", "0");
             params.put("customerId", String.valueOf(GlobalVars.activeUserId));
 
+            String productData = "";
 
+            for (int i = 0; i < CartAdapter.getItems().size(); i++) {
+                Cart item = CartAdapter.getItems().get(i);
+                productData += item.getNamePro() +
+                        ", SL:" + item.getNumberPro() +
+                        ", Giá:" + item.getPricePro() + ";";
+            }
+
+            params.put("productData", productData);
 
             RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
             JsonObjectRequest request_json = new JsonObjectRequest(Server.billPath, new JSONObject(params),

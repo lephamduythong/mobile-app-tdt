@@ -6,12 +6,18 @@ public class Bill {
     private int idcustomer;
     private String date;
     private int status;
+    private String productData;
 
-    public Bill(int idpro, int idcustomer, String date, int status) {
+    public Bill(int idpro, int idcustomer, String date, int status, String productData) {
         this.idpro = idpro;
         this.idcustomer = idcustomer;
         this.date = date;
         this.status = status;
+        this.productData = productData;
+    }
+
+    public String getProductData() {
+        return productData;
     }
 
     public int getIdpro() {

@@ -56,7 +56,9 @@ public class BillActivity extends AppCompatActivity {
                                 jsonObject.getInt("id"),
                                 jsonObject.getInt("customerId"),
                                 jsonObject.getString("dateCreated"),
-                                jsonObject.getInt("status"));
+                                jsonObject.getInt("status"),
+                                jsonObject.getString("productData")
+                            );
                             data.add(bill);
                         } catch (JSONException e) {
                             e.printStackTrace();
