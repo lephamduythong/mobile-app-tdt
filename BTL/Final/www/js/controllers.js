@@ -142,5 +142,37 @@ myApp.controllers = {
         } else if (state == "destroy") {
             $('#menuRegion').attr('swipeable', '');
         }
+    },
+    getLocationView: function(page, state) {
+        if (state == 'init') {
+            $('#button-toggle-menu').click(function () {
+                $('#mySplitter')[0].left.toggle();
+            });
+            $('#button-get').click(function() {
+                // console.log(navigator.geolocation.getCurrentPosition(onSuccess, onError));
+                // var options = {
+                //     maximunAge: 3600000,
+                //     timeout: 300, 
+                //     enableHighAccuracy: true
+                // }
+                console.log('Starting get');
+                navigator.geolocation.getCurrentPosition(onSuccess, onError);
+
+                function onSuccess(position) {
+                    // alert('Latitude: ' + position.coords.latitude + '\n' +
+                    //     'Longitude: ' + position.coords.longitude + '\n');
+                    console.log('Get');
+                    $('#text-result').text(
+                        'Latitude: ' + position.coords.latitude + ' ' +
+                        'Longitude: ' + position.coords.longitude
+                    )
+                }
+                function onError(error) {
+                    console.log('Error');
+                    alert('Error');
+                }
+            });
+        }
     }
 }
+
