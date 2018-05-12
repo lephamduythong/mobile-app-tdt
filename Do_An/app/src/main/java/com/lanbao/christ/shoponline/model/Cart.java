@@ -4,10 +4,10 @@ public class Cart {
     private int idPro;
     private String namePro;
     private long pricePro;
-    private int imagePro;
+    private String imagePro;
     private int numberPro;
 
-    public Cart(int idPro, String namePro, long pricePro, int imagePro, int numberPro) {
+    public Cart(int idPro, String namePro, long pricePro, String imagePro, int numberPro) {
         this.idPro = idPro;
         this.namePro = namePro;
         this.pricePro = pricePro;
@@ -39,11 +39,11 @@ public class Cart {
         this.pricePro = pricePro;
     }
 
-    public int getImagePro() {
+    public String getImagePro() {
         return imagePro;
     }
 
-    public void setImagePro(int imagePro) {
+    public void setImagePro(String imagePro) {
         this.imagePro = imagePro;
     }
 

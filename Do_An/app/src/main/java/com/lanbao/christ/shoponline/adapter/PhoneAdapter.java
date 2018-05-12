@@ -1,6 +1,7 @@
 package com.lanbao.christ.shoponline.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +12,12 @@ import android.widget.TextView;
 
 import com.lanbao.christ.shoponline.R;
 import com.lanbao.christ.shoponline.model.Product;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -68,10 +73,23 @@ public class PhoneAdapter extends BaseAdapter {
         viewHolder.txtDescription.setMaxLines(2);
         viewHolder.txtDescription.setEllipsize(TextUtils.TruncateAt.END);
         viewHolder.txtDescription.setText(product.getDescription());
+//        Picasso.with(context).load(product.getImage())
+//                .placeholder(R.drawable.noimage)
+//                .error(R.drawable.error)
+//                .into(viewHolder.imagePhone);
         Picasso.with(context).load(product.getImage())
-                .placeholder(R.drawable.noimage)
-                .error(R.drawable.error)
-                .into(viewHolder.imagePhone);
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
+                .into(viewHolder.imagePhone, new Callback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+                    @Override
+                    public void onError() {
+
+                    }
+                });
         return view;
     }
 }

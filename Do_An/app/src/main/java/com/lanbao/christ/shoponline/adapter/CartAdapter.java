@@ -14,6 +14,7 @@ import com.lanbao.christ.shoponline.R;
 import com.lanbao.christ.shoponline.activity.CartActivity;
 import com.lanbao.christ.shoponline.activity.MainActivity;
 import com.lanbao.christ.shoponline.model.Cart;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
@@ -74,10 +75,12 @@ public class CartAdapter extends BaseAdapter {
         txtNameCart.setText(cart.getNamePro());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         txtPriceCart.setText(decimalFormat.format(cart.getPricePro()) + " Đ");
+
         Picasso.with(context).load(cart.getImagePro())
                 .placeholder(R.drawable.noimage)
                 .error(R.drawable.error)
                 .into(imageCart);
+
         btnValues.setText(cart.getNumberPro() + "");
         int sl = Integer.parseInt(btnValues.getText().toString());
         if(sl >= 10){

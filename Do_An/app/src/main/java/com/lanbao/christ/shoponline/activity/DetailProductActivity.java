@@ -31,7 +31,7 @@ public class DetailProductActivity extends AppCompatActivity {
     int id = 0;
     String namedetail = "";
     int price = 0;
-    int image = 0;
+    String image = "";
     String descriptionDetail = "";
     int idCate = 0;
 

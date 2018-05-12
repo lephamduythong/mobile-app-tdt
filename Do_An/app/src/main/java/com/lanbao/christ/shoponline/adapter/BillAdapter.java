@@ -2,7 +2,6 @@ package com.lanbao.christ.shoponline.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,28 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
 import com.lanbao.christ.shoponline.R;
 import com.lanbao.christ.shoponline.model.Bill;
-import com.lanbao.christ.shoponline.ultil.FetchData;
-import com.lanbao.christ.shoponline.ultil.GlobalVars;
-import com.lanbao.christ.shoponline.ultil.Server;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class BillAdapter extends BaseAdapter {
     Context context;

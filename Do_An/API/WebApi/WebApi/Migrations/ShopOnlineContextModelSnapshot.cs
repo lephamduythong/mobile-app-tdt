@@ -90,7 +90,7 @@ namespace WebApi.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<int>("Image");
+                    b.Property<string>("Image");
 
                     b.Property<string>("Name");
 

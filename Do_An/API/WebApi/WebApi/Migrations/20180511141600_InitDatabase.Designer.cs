@@ -10,8 +10,8 @@ using WebApi.Models;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(ShopOnlineContext))]
-    [Migration("20180428085029_Change1")]
-    partial class Change1
+    [Migration("20180511141600_InitDatabase")]
+    partial class InitDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,11 +28,38 @@ namespace WebApi.Migrations
 
                     b.Property<string>("DateCreated");
 
+                    b.Property<string>("ProductData");
+
                     b.Property<int>("Status");
 
                     b.HasKey("Id");
 
                     b.ToTable("Bills");
+                });
+
+            modelBuilder.Entity("WebApi.Models.BillDetail", b =>
+                {
+                    b.Property<int>("BillId");
+
+                    b.Property<int>("ProductId");
+
+                    b.Property<int>("Quantity");
+
+                    b.HasKey("BillId", "ProductId");
+
+                    b.ToTable("BillDetails");
+                });
+
+            modelBuilder.Entity("WebApi.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("WebApi.Models.Customer", b =>
@@ -64,7 +91,7 @@ namespace WebApi.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<int>("Image");
+                    b.Property<string>("Image");
 
                     b.Property<string>("Name");
 

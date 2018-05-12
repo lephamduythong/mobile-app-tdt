@@ -9,12 +9,18 @@ myApp.controllers = {
                 console.log('run');
                 $('#mySplitter')[0].left.toggle();
             });
+        } else if (state == "show") {
+
+        } else if (state == "hide") {
+
+        } else if (state == "destroy") {
+
         }
     },
     listView: function (page, state) {
         if (state == "init") {
             if (!returnValue.action) {
-                var data = [];
+                var data = ['SSSS'];
             } else if (returnValue.action == "ADD_NEW_NOTE") {
                 console.log(returnValue);
                 var item = `
@@ -35,7 +41,6 @@ myApp.controllers = {
                     <ons-col>Image</ons-col>
                 </ons-row>
             </ons-list-item>`;
-
                 $('#listItem').prepend(item);
             }
 

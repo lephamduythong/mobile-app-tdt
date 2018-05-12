@@ -93,7 +93,7 @@ public class LaptopActivity extends AppCompatActivity {
                                     jsonObject.getInt("id"),
                                     jsonObject.getString("name"),
                                     jsonObject.getInt("price"),
-                                    R.drawable.apple7plus32,
+                                    jsonObject.getString("image"),
                                     jsonObject.getString("description"),
                                     jsonObject.getInt("categoryId"));
 
